@@ -121,17 +121,16 @@ func runComputer(pgm []int, stdin, stdout *queue.Queue) []int {
 }
 
 func handleAddressing(pgm []int, addrMode int, argAddrs []int) []int {
-	mask := 1
 	var realArgs []int
 	for i := 0; i < len(argAddrs); i++ {
 		var realArg int
-		if addrMode & mask == 0 {
+		if addrMode % 10 == 0 {
 			realArg = pgm[pgm[argAddrs[i]]]
 		} else {
 			realArg = pgm[argAddrs[i]]
 		}
 		realArgs = append(realArgs, realArg)
-		mask = mask << 1
+		addrMode /= 10
 	}
 	return realArgs
 }
